@@ -42,23 +42,28 @@ def error() -> int:
 
 def binomiale(x: int, y: int) -> float:
     """Get the binomial law between two values."""
-    return pow(1/6, y) * pow(5/6, x - y) * (factorial(x) / (factorial(y) *\
-        factorial(x - y)))
+    return (pow(1/6, y) * pow(5/6, x - y) * (factorial(x) / (factorial(y) *\
+        factorial(x - y))))
 
 def proba(how_many: int, ref: int, list: [int]) -> float:
     """Get the final probability with a ref nb and a count nb"""
     occur = list.count(int(ref))
+    res = 0
     if occur >= how_many:
         return 1
     for i in range(how_many - occur, 5 - occur + 1):
-        res += binomiale(5 - occur, i)
+        res = res + binomiale(5 - occur, i)
     return res
 
 def yams(argv, value):
     """Main program for 201yams."""
     list = []
     for i in range(1, 6):
-        list.append(argv[i])
+        list.append(int(argv[i]))
+    if value[0] == 'yams':
+        print('%0.2f' % (proba(5, value[1], list) * 100))
+    if value[0] == 'four':
+        print('%0.2f' % (proba(4, value[1], list) * 100))
 
 if __name__ == "__main__":
     if len(argv) == 2 and argv[1] == "-h":
