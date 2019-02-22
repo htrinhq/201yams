@@ -3,6 +3,7 @@
 from sys import *
 
 def helper():
+    """Helper for Yams"""
     print("USAGE\n\t\t./201yams d1 d2 d3 d4 d5 c \n")
     print("DESCRIPTION\n\t\td1\tvalue of the first die (0 if not thrown")
     print("\t\td2\tvalue of the second die (0 if not thrown)")
@@ -11,11 +12,22 @@ def helper():
     print("\t\td5\tvalue of the fifth die (0 if not thrown)")
     print("\t\tc\texpected combination")
 
+def check_dices(argv):
+    """Check if dices values are correct"""
+    for index, value in enumerate(argv, 0):
+        if index == 0 or index == 6:
+            continue
+        elif value.isnumeric() == False or (int(value) < 0 or int(value) > 6) and (index != 0 or index != 7):
+            return 1
+        else:
+            continue
+    return 0
+
 
 if __name__ == "__main__":
     if len(argv) == 2 and argv[1] == "-h":
         helper()
-    elif len(argv) == 7:
+    elif len(argv) == 7 and check_dices(argv) == 0:
         print("YAMMS!")
     else:
         print("\tINVALID ARGUMENT")
