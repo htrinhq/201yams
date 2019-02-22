@@ -64,11 +64,18 @@ def proba(how_many: int, ref: int, list: [int]) -> float:
     return res
 
 def display_result(ref: int, value: int, list: [int], name: str):
-    """Displays result"""
+    """Display result."""
     if name == 'four':
         name = 'four-of-a-kind'
+    elif name == 'three':
+        name = 'three-of-a-kind'
     print('chances to get a ' + value + ' ' + name + ':  ' + '%0.2f' %
           (proba(ref, value, list) * 100) + '%')
+
+def full(value, list: [int]):
+    """Full function."""
+    print('full')
+
 
 def yams(argv, value):
     """Main program for 201yams."""
@@ -77,12 +84,18 @@ def yams(argv, value):
         list.append(int(argv[i]))
     if value[0] == 'yams':
         display_result(5, value[1], list, value[0])
-    if value[0] == 'four':
+    elif value[0] == 'four':
         display_result(4, value[1], list, value[0])
-    if value[0] == 'three':
+    elif value[0] == 'three':
         display_result(3, value[1], list, value[0])
-    if value[0] == 'pair':
+    elif value[0] == 'pair':
         display_result(2, value[1], list, value[0])
+    elif value[0] == 'full' and len(value) == 3:
+        full(value, list)
+    elif value[0] == 'straight' and int(value[1]) >= 5:
+        print('straight')
+    else:
+        error()
 
 if __name__ == "__main__":
     if len(argv) == 2 and argv[1] == "-h":
