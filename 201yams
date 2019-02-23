@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 
-from sys import *
-from math import *
+from sys import argv
+from math import factorial
+from check import *
+from proba import proba
+from full_straight import full, straight
 
 def helper():
     """Helper for Yams."""
@@ -13,105 +16,30 @@ def helper():
     print("\t\td5\tvalue of the fifth die (0 if not thrown)")
     print("\t\tc\texpected combination")
 
-def check_dices(argv) -> int:
-    """Check if dices values are correct."""
-    for index, value in enumerate(argv, 0):
-        if index == 0 or index == 6:
-            continue
-        elif value.isnumeric() == False:
-            return 1
-        elif (int(value) < 0 or int(value) > 6) and (index != 0 or index != 7):
-            return 1
-        else:
-            continue
-    return 0
-
-def check_last_value(argv):
-    """Check last arg, to see if resukt expected is correct."""
-    value = argv[6].split('_')
-    if value[0] != 'pair' and value[0] != 'three' and value[0] != 'four' and\
-    value[0] != 'full' and value[0] != 'straight' and value[0] != 'yams':
-        error()
-    if len(value) == 1:
-        error()
-    if len(value) == 2 and (value[1].isnumeric() == False or int(value[1]) < 0
-    or int(value[1]) > 6):
-        error()
-    if len(value) == 3 and (value[2].isnumeric() == False or int(value[2]) < 0
-    or int(value[2]) > 6 or int(value[1]) == int(value[2])):
-        error()
-    return value
-
-def error() -> int:
-    """Error message."""
-    print("\tINVALID ARGUMENT")
-    print("->\ttype \"-h\" for help\t<-")
-    exit(84)
-
-def binomiale(x: int, y: int) -> float:
-    """Get the binomial law between two values."""
-    return (pow(1/6, y) * pow(5/6, x - y) * (factorial(x) / (factorial(y) *\
-        factorial(x - y))))
-
-def proba(how_many: int, ref: int, list: [int]) -> float:
-    """Get the final probability with a ref nb and a count nb"""
-    occur = list.count(int(ref))
-    res = 0
-    if occur >= how_many:
-        return 1
-    for i in range(how_many - occur, 5 - occur + 1):
-        res = res + binomiale(5 - occur, i)
-    return res
-
 def display_result(ref: int, value: int, list: [int], name: str):
     """Display result."""
-    if name == 'four':
-        name = 'four-of-a-kind'
-    elif name == 'three':
-        name = 'three-of-a-kind'
+    'four-of-a-kind' if name == 'four' else name
+    'three-of-a-kind' if name == 'three' else name
     print('chances to get a ' + value + ' ' + name + ':  ' + '%0.2f' %
           (proba(ref, value, list) * 100) + '%')
-
-def result_full(first: int, sec: int) -> float:
-    """Get the full result in float"""
-    pair = float(factorial(5 - first - sec) /
-    (factorial(3 - sec) * factorial((5 - (first + sec)) - (3 - first))))
-    three = float(factorial(2 - sec) / (factorial(2 - sec) * factorial(0)))
-    return ((pair * three) / pow(6, 5 - first - sec)) * 100
-
-def full(value, list: [int]):
-    """Full function."""
-    if len(value) < 3:
-        error()
-    first_occur = list.count(int(value[1]))
-    sec_occur = list.count(int(value[2]))
-
-    if first_occur == 3 and sec_occur == 2:
-        print('chances to get a ' + value[1] + ' full of ' +\
-        value[2] + ': 100.00%')
-    else:
-        3 if first_occur > 3 else first_occur
-        2 if sec_occur > 2 else sec_occur
-        print('chances to get a ' + value[1] + ' full of ' +
-        value[2] + ':  ' + '%0.2f' % result_full(first_occur, sec_occur) + '%')
 
 def yams(argv, value):
     """Main program for 201yams."""
     list = []
     for i in range(1, 6):
         list.append(int(argv[i]))
-    if value[0] == 'yams':
+    if value[0] == 'yams' and len(value) == 2:
         display_result(5, value[1], list, value[0])
-    elif value[0] == 'four':
+    elif value[0] == 'four' and len(value) == 2:
         display_result(4, value[1], list, value[0])
-    elif value[0] == 'three':
+    elif value[0] == 'three' and len(value) == 2:
         display_result(3, value[1], list, value[0])
-    elif value[0] == 'pair':
+    elif value[0] == 'pair' and len(value) == 2:
         display_result(2, value[1], list, value[0])
     elif value[0] == 'full' and len(value) == 3:
         full(value, list)
-    elif value[0] == 'straight' and int(value[1]) >= 5:
-        print('straight')
+    elif value[0] == 'straight' and len(value) == 2 and int(value[1]) >= 5:
+        straight(value, list)
     else:
         error()
 
