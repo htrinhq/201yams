@@ -18,8 +18,8 @@ def helper():
 
 def display_result(ref: int, value: int, list: [int], name: str):
     """Display result."""
-    'four-of-a-kind' if name == 'four' else name
-    'three-of-a-kind' if name == 'three' else name
+    name = 'four-of-a-kind' if name == 'four' else name
+    name = 'three-of-a-kind' if name == 'three' else name
     print('chances to get a ' + value + ' ' + name + ':  ' + '%0.2f' %
           (proba(ref, value, list) * 100) + '%')
 
