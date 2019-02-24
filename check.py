@@ -26,10 +26,11 @@ def check_last_value(argv):
         error()
     if len(value) == 1:
         error()
-    if len(value) == 2 and (value[1].isnumeric() == False or int(value[1]) < 0
+    if len(value) == 2 and (value[1].isnumeric() == False or int(value[1]) < 1
     or int(value[1]) > 6):
         error()
-    if len(value) == 3 and (value[2].isnumeric() == False or int(value[2]) < 0
-    or int(value[2]) > 6 or int(value[1]) == int(value[2])):
+    if len(value) == 3 and (value[2].isnumeric() == False or int(value[2]) < 1
+    or int(value[2]) > 6 or int(value[1]) == int(value[2])) or\
+    int(value[1]) < 1 or int(value[1]) > 6:
         error()
     return value

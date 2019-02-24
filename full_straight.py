@@ -5,7 +5,7 @@ from check import error
 def result_full(first: int, sec: int) -> float:
     """Get the full result in float."""
     pair = float(factorial(5 - first - sec) /
-                 (factorial(3 - sec) * factorial((5 - (first + sec)) - (3 - first))))
+    (factorial(3 - sec) * factorial((5 - (first + sec)) - (3 - first))))
     three = float(factorial(2 - sec) / (factorial(2 - sec) * factorial(0)))
     return ((pair * three) / pow(6, 5 - first - sec)) * 100
 
@@ -24,7 +24,7 @@ def full(value, list: [int]):
         3 if first_occur > 3 else first_occur
         2 if sec_occur > 2 else sec_occur
         print('chances to get a ' + value[1] + ' full of ' +
-              value[2] + ':  ' + '%0.2f' % result_full(first_occur, sec_occur) + '%')
+        value[2] + ':  ' + '%0.2f' % result_full(first_occur, sec_occur) + '%')
 
 
 def get_digit(nb: int, list: [int]) -> int:
