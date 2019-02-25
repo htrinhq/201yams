@@ -22,7 +22,6 @@ def full(value, list: [int]):
     else:
         first_occur = 3 if first_occur > 3 else first_occur
         sec_occur = 2 if sec_occur > 2 else sec_occur
-        print('first: ' + str(first_occur) + ' sec: ' + str(sec_occur))
         print('chances to get a ' + value[1] + ' full of ' +
         value[2] + ':  ' + '%0.2f' % result_full(first_occur, sec_occur) + '%')
 
